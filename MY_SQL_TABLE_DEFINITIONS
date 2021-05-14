@@ -1,0 +1,58 @@
+CREATE TABLE DONORS(
+D_id int NOT NULL AUTO_INCREMENT,
+Name varchar(255) NOT NULL,
+Gender varchar(255) NOT NULL CHECK(LOWER(Gender) = "male" or LOWER(Gender) = "female"),
+Age int NOT NULL,
+Phone INT NOT NULL,
+Pin_Code INT NOT NULL,
+District varchar(255) NOT NULL,
+State varchar(255) NOT NULL,
+PRIMARY KEY(D_id)
+);        
+
+
+CREATE TABLE BLOODBANK(
+B_id varchar(255) NOT NULL,
+Name VARCHAR(255) NOT NULL,
+Contact_no VARCHAR(255) NOT NULL,
+State VARCHAR(255) NOT NULL,
+District VARCHAR(255) NOT NULL,
+Pin_Code INT NOT NULL,
+ PRIMARY KEY(B_id)
+);
+
+
+CREATE TABLE BLOOD(
+D_id varchar(255) NOT NULL,
+Type VARCHAR(255) NOT NULL,
+Alcoholic varchar(255) NOT NULL CHECK(LOWER(Alcoholic) = "yes" or LOWER(Alcoholic) = 'no'),
+Quantity int NOT NULL,
+B_id varchar(255) NOT NULL,
+PRIMARY KEY(D_id,B_id),
+FOREIGN KEY(D_id) REFERENCES DONORS(D_id),
+FOREIGN KEY(B_id) REFERENCES BLOODBANK(B_id)
+);
+
+
+CREATE TABLE Charity(
+Ch_id VARCHAR(255),
+Name  VARCHAR(255) NOT NULL,
+Contact_no  INT NOT NULL,
+State   VARCHAR(255) NOT NULL,
+District VARCHAR(255) NOT NULL,
+Pincode INT NOT NULL,
+Primary Key(Ch_id)
+);
+
+
+CREATE TABLE OTHERS(
+D_id VARCHAR(255),
+Type VARCHAR(255),
+Can_Contact VARCHAR(255) NOT NULL CHECK(LOWER(Can_Contact) ="yes" or LOWER(Can_Contact) = "no"),
+Ch_id VARCHAR(255),
+Quantity INT NOT NULL,
+ PRIMARY KEY(D_id,Type,Ch_id),
+ FOREIGN KEY (D_id)  REFERENCES DONORS(D_id),
+ FOREIGN KEY (Ch_id) REFERENCES CHARITY(Ch_id)
+  );
+
